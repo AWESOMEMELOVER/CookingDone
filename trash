@@ -1,0 +1,88 @@
+var $play  = $('.play'),
+    $pause = $('.pause'),
+    $stop  = $('.stop'),
+    $timer = $('.timer');
+
+var timer = new Timer({
+    onstart : function(millisec) {
+        var sec = Math.round(millisec / 1000);
+        $timer.text(sec);
+    },
+    ontick  : function(millisec) {
+        var sec = Math.round(millisec / 1000);
+        $timer.text(sec);
+    },
+    onpause : function() {
+        $timer.text('pause');
+    },
+    onstop  : function() {
+        $timer.text('stop');
+    },
+    onend   : function() {
+        $timer.text('end');
+    }
+});
+
+$play.on('click', function() {
+
+    timer.start(5);
+});
+
+$pause.on('click', function() {
+    if (timer.getStatus() === 'started') {
+        timer.pause();
+    }
+});
+
+$stop.on('click', function() {
+    if (/started|paused/.test(timer.getStatus())) {
+        timer.stop();
+    }
+});
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Start Bootstrap</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="demo-wrapper section">
+  <div class="buttons">
+
+      <svg class="button play" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M8 5v14l11-7z"/>
+          <path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+
+      <svg class="button pause" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" class="__web-inspector-hide-shortcut__"/>
+          <path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+
+      <svg class="button stop" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M6 6h12v12H6z"/>
+      </svg>
+
+  </div>
+
+  <div class="timer" id="timer">&nbsp;</div>
